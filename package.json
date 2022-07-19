@@ -1,0 +1,24 @@
+{
+  "name": "onlinefooddeliverywebsite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diellgashi01/onlinefooddeliverywebsite.git"
+  },
+  "author": "Diell Gashi, Altin Salihu, Erian Dauti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diellgashi01/onlinefooddeliverywebsite/issues"
+  },
+  "homepage": "https://github.com/diellgashi01/onlinefooddeliverywebsite#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.5"
+  }
+}
