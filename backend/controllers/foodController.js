@@ -1,17 +1,18 @@
 const Food = require('../models/food');
 const ErrorHandler = require('../utils/errorHandler');
+const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 //Create new Food Product => /api/v1/food/new
-exports.newFood = async (req, res, next) => {
+exports.newFood = catchAsyncErrors (async (req, res, next) => {
     const food = await Food.create(req.body);
     res.status(201).json({
         success: true,
         food
     })
-} 
+})
 
 //Get all Food Products => /api/admin/v1/foods
-exports.getFoods = async(req, res, next) => {
+exports.getFoods = catchAsyncErrors (async(req, res, next) => {
     const foods = await Food.find();
 
     res.status(200).json({
@@ -19,10 +20,10 @@ exports.getFoods = async(req, res, next) => {
         count: foods.length,
         foods
     })
-}
+})
 
 //Get a single Food Product by ID => /api/v1/food/:id
-exports.getSingleFood = async(req, res, next) =>{
+exports.getSingleFood = catchAsyncErrors (async(req, res, next) =>{
     const food = await Food.findById(req.params.id);
     
     if(!food){
@@ -33,10 +34,10 @@ exports.getSingleFood = async(req, res, next) =>{
         success: true,
         food
     })
-}
+})
 
 //Update Food Product => /api/v1/admin/product/:id
-exports.updateFood = async(req, res, next) => {
+exports.updateFood = catchAsyncErrors (async(req, res, next) => {
     let food = await Food.findById(req.params.id);
     
     if(!food){
@@ -52,10 +53,10 @@ exports.updateFood = async(req, res, next) => {
         success: true,
         food
     })
-}
+})
 
 //Delete Product => /api/v1/admin/product/:id
-exports.deleteFood = async(req, res, next) => {
+exports.deleteFood = catchAsyncErrors (async(req, res, next) => {
     const food  = await Food.findById(req.params.id);
 
     if(!food){
@@ -67,4 +68,4 @@ exports.deleteFood = async(req, res, next) => {
         success: true,
         message: 'Food product is deleted.'
     })
-}
+})
