@@ -38,7 +38,7 @@ exports.getSingleFood = async(req, res, next) =>{
 }
 
 //Update Food Product => /api/v1/admin/product/:id
-exports.updateFood = async(req, res, next) =>{
+exports.updateFood = async(req, res, next) => {
     let food = await Food.findById(req.params.id);
     
     if(!food){
@@ -56,5 +56,23 @@ exports.updateFood = async(req, res, next) =>{
     res.status(200).json({
         success: true,
         food
+    })
+}
+
+//Delete Product => /api/v1/admin/product/:id
+exports.deleteFood = async(req, res, next) => {
+    const food  = await Food.findById(req.params.id);
+
+    if(!food){
+        return res.status(404).json({
+            success: false,
+            message: 'Food product not found.'
+        })
+    }
+
+    await food.remove();
+    res.status(200).json({
+        success: true,
+        message: 'Food product is deleted.'
     })
 }
