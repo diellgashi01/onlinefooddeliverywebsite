@@ -1,6 +1,7 @@
 const Food = require('../models/food');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const APIFeatures = require('../utils/apiFeatures')
 
 //Create new Food Product => /api/v1/food/new
 exports.newFood = catchAsyncErrors (async (req, res, next) => {
@@ -11,9 +12,10 @@ exports.newFood = catchAsyncErrors (async (req, res, next) => {
     })
 })
 
-//Get all Food Products => /api/admin/v1/foods
+//Get all Food Products => /api/admin/v1/foods?keyword="pepperoni"
 exports.getFoods = catchAsyncErrors (async(req, res, next) => {
-    const foods = await Food.find();
+    const apiFeatures = new APIFeatures(Food.find(), req.query).search()
+    const foods = await apiFeatures.query;
 
     res.status(200).json({
         success: true,
