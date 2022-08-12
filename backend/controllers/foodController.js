@@ -19,3 +19,19 @@ exports.getFoods = async(req, res, next) => {
         foods
     })
 }
+
+//Get a single Food Product by ID => /api/v1/food/:id
+exports.getSingleFood = async(req, res, next) =>{
+    const food = await Food.findById(req.params.id);
+    if(!food){
+        return res.status(404).json({
+            success: false,
+            message: 'Food product not found.'
+        })
+    }
+
+    res.status(200).json({
+        success: true,
+        food
+    })
+}
