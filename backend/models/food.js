@@ -33,7 +33,7 @@ const foodSchema = new mongoose.Schema({
     }],
     category: {
         type: String,
-        required: [true, "PLease select a food category!"],
+        required: [true, "Please select a food category!"],
         enum: {
             values: [
                 'Burgers',
