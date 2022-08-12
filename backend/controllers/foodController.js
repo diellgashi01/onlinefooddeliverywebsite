@@ -9,9 +9,13 @@ exports.newFood = async (req, res, next) => {
     })
 } 
 
-exports.getFoods = (req, res, next) => {
+//Get all Food Products => /api/v1/foods
+exports.getFoods = async(req, res, next) => {
+    const foods = await Food.find();
+
     res.status(200).json({
         success: true,
-        message: 'This route will show all food products on the database.'
+        count: foods.length,
+        foods
     })
 }
