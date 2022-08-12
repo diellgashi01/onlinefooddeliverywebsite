@@ -14,7 +14,7 @@ exports.newFood = catchAsyncErrors (async (req, res, next) => {
 
 //Get all Food Products => /api/admin/v1/foods?keyword="pepperoni"
 exports.getFoods = catchAsyncErrors (async(req, res, next) => {
-    const apiFeatures = new APIFeatures(Food.find(), req.query).search()
+    const apiFeatures = new APIFeatures(Food.find(), req.query).search().filter()
     const foods = await apiFeatures.query;
 
     res.status(200).json({
