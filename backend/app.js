@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
 
+const cookieParser = require('cookie-parser');
+
 app.use(express.json());
+app.use(cookieParser());
 
 //Import all routes
 const foods = require('./routes/food');
