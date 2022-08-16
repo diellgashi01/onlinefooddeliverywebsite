@@ -3,7 +3,8 @@ const ErrorHandler = require('../utils/errorHandler')
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const sendToken = require('../utils/JwtToken');
 const sendEmail = require('../utils/sendEmail')
-const crypto = require('crypto')
+const crypto = require('crypto');
+const user = require('../models/user');
 
 //Register a user => /api/v1/register
 exports.registerUser = catchAsyncErrors( async (req, res, next) => {
@@ -114,6 +115,16 @@ exports.resetPassword = catchAsyncErrors(async(req, res, next) => {
 
     sendToken(user, 200, res)
 
+})
+
+//Get currently logged in user details => /api/v1/me
+exports.getUserProfile = catchAsyncErrors(async(req, res, next) =>{
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        user
+    })
 })
 
 //Logout user method => /api/v1/logout
