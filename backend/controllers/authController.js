@@ -203,3 +203,39 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
         user
     })
 })
+
+//Update a user's details => /api/v1/admin/user/:id
+exports.updateUser = catchAsyncErrors(async (req, res, next) =>{
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true
+    })
+})
+
+//Delete user => /api/v1/admin/user/:id
+exports.deleteUser = catchAsyncErrors(async (req, res, next) =>{
+    const user = await User.findById(req.params.id);
+
+    if(!user){
+        return next(new ErrorHandler(`User with the id: ${req.params.id} does not exist!`, 404))
+    }
+
+    //Remove avatar from couldinary - TODO
+
+    await user.remove();
+
+    res.status(200).json({
+        success: true
+    })
+})
