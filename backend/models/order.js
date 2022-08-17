@@ -46,7 +46,7 @@ const orderSchema = mongoose.Schema({
                 type: Number,
                 required: true
             },
-            foodProduct: {
+            food: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
                 ref: 'Food'
