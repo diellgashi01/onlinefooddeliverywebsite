@@ -44,7 +44,7 @@ exports.myOrders = catchAsyncErrors(async (req, res, next) =>{
     })
 })
 
-//Get all orders => /api/v1/admin/orders/
+//Get all orders - Admin => /api/v1/admin/orders/
 exports.allOrders = catchAsyncErrors(async (req, res, next) =>{
     const orders = await Order.find()
 
@@ -59,3 +59,33 @@ exports.allOrders = catchAsyncErrors(async (req, res, next) =>{
         orders
     })
 })
+
+//Update / Process orders - Admin => /api/v1/admin/orders/:id
+exports.updateOrders = catchAsyncErrors(async (req, res, next) =>{
+    const order = await Order.findById(req.params.id)
+
+    if(order.orderStatus === "Delivered") {
+        return next(new ErrorHandler("You have already deliverd this order", 400))
+    }
+
+    order.orderItems.forEach(async item => {
+        await updateStock(item.food, item.quantity)
+    })
+
+    order.orderStatus = req.body.status,
+    order.delivereAt = Date.now()
+
+    await order.save()
+
+    res.status(200).json({
+        success: true,
+    })
+})
+
+async function updateStock(id, quantity) {
+    const food = await Food.findById(id);
+
+    food.stock = product.stock - quantity;
+
+    await food.save({ validateBeforeSave: false })
+}
