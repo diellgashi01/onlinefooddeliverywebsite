@@ -79,7 +79,7 @@ exports.deleteFood = catchAsyncErrors (async(req, res, next) => {
 
 // Create new review => /api/v1/review
 exports.createFoodReview = catchAsyncErrors(async (req, res, next) => {
-    
+
     const { rating, comment, foodId } = req.body;
 
     const review = {
@@ -89,34 +89,41 @@ exports.createFoodReview = catchAsyncErrors(async (req, res, next) => {
         comment
     }
 
-    const food = await Food.findById(foodId);
+    const food = await Food.findById(foodId );
 
-    const isReviewd = food.reviews.find(
+    const isReviewed = food.reviews.find(
         r => r.user.toString() === req.user._id.toString()
     )
 
-    if(isReviewd) {
+    if (isReviewed) {
         food.reviews.forEach(review => {
-            if(review.user.toString() === req.user._id.toString()) {
+            if (review.user.toString() === req.user._id.toString()) {
                 review.comment = comment;
-
                 review.rating = rating;
             }
         })
 
-    }else {
+    } else {
         food.reviews.push(review);
         food.numOfReviews = food.reviews.length
     }
 
-    food.ratings = food.reviews.reduce((acc, item) => item.rating + acc, 0 ) 
-    / food.reviews.length
+    food.ratings = food.reviews.reduce((acc, item) => item.rating + acc, 0) / food.reviews.length
 
     await food.save({ validateBeforeSave: false });
 
     res.status(200).json({
         success: true
     })
-    
 
+})
+
+// Get Food Reviews => /api/v1/reviews
+exports.getFoodReviews = catchAsyncErrors(async (req, res, next) => {
+    const food = await Food.findById(req.query.id);
+
+    res.status(200).json({
+        success: true,
+        reviews: food.reviews
+    })
 })
