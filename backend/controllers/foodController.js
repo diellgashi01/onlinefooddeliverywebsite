@@ -127,3 +127,31 @@ exports.getFoodReviews = catchAsyncErrors(async (req, res, next) => {
         reviews: food.reviews
     })
 })
+
+
+// Delete Food Reviews => /api/v1/reviews
+exports.deleteFoodReviews = catchAsyncErrors(async (req, res, next) => {
+    const food = await Food.findById(req.query.foodId);
+
+    const reviews = food.reviews.filter(review => review._id.toString() !== req.query.id
+    .toString())
+
+    const numOfReviews = reviews.length;
+
+    const ratings = food.reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length
+
+    await Food.findByIdAndUpdate(req.query.foodId, {
+        reviews,
+        ratings,
+        numOfReviews
+    }, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+    })
+})
+
