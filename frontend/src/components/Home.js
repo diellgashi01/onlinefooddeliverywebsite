@@ -1,37 +1,38 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import MetaData from './layout/MetaData'
+import Food from './food/Food'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { getFoods } from '../actions/foodActions'
 
 const Home = () => {
+
+    const dispatch = useDispatch();
+
+    const { loading, foods, error, foodsCount } = useSelector(state => state.foods)
+    
+    useEffect(() => {
+        dispatch(getFoods());
+    }, [dispatch])
+
   return (
     <Fragment>
-        <MetaData title={'Order'}/>
-        <h1 id="products_heading">Latest Food Products</h1>
+        {loading ? <h1>Loading...</h1> : (
+            <Fragment>
+                <MetaData title={'Order'}/>
+                <h1 id="foods_heading">Latest Food Products</h1>
 
-        <section id="products" className="container mt-5">
-        <div className="row">
-            <div className="col-sm-12 col-md-6 col-lg-3 my-3">
-            <div className="card p-3 rounded">
-                <img
-                className="card-img-top mx-auto"
-                src="https://mevishcafe.com.ng/wp-content/uploads/2021/08/Pizza.jpg"
-                />
-                <div className="card-body d-flex flex-column">
-                <h5 className="card-title">
-                    <a href="">Delicious Pepperoni Pizza</a>
-                </h5>
-                <div className="ratings mt-auto">
-                    <div className="rating-outer">
-                    <div className="rating-inner"></div>
-                    </div>
-                    <span id="no_of_reviews">(5 Reviews)</span>
+                <section id="foods" className="container mt-5">
+                <div className="row">
+                    {foods && foods.map(food => (
+                        <Food key={food._id} food={food} />
+                    ))}
+                    
                 </div>
-                <p className="card-text">$12.99</p>
-                <a href="#" id="view_btn" className="btn btn-block">View Details</a>
-                </div>
-            </div>
-            </div>
-        </div>
-        </section>
+                </section>
+            </Fragment>
+        )}
+        
 
     </Fragment>
   )

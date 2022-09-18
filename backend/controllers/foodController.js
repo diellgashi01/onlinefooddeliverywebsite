@@ -17,16 +17,18 @@ exports.newFood = catchAsyncErrors (async (req, res, next) => {
 //Get all Food Products => /api/admin/v1/foods?keyword="pepperoni"
 exports.getFoods = catchAsyncErrors (async(req, res, next) => {
     const resPerPage = 12;
-    const foodCount = await Food.countDocuments();
+    const foodsCount = await Food.countDocuments();
     const apiFeatures = new APIFeatures(Food.find(), req.query).search().filter().pagination(resPerPage)
     const foods = await apiFeatures.query;
 
-    res.status(200).json({
-        success: true,
-        count: foods.length,
-        foodCount,
-        foods
-    })
+    setTimeout(() => {
+        res.status(200).json({
+            success: true,
+            count: foods.length,
+            foodsCount,
+            foods
+        })
+    }, 500);
 })
 
 //Get a single Food Product by ID => /api/v1/food/:id
