@@ -5,16 +5,21 @@ import Loader from './layout/Loader'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getFoods } from '../actions/foodActions'
+import { useAlert } from 'react-alert';
 
 const Home = () => {
 
     const dispatch = useDispatch();
-
+    const alert = useAlert();
     const { loading, foods, error, foodsCount } = useSelector(state => state.foods)
     
     useEffect(() => {
+        if(error){
+            return alert.error(error)
+        }
         dispatch(getFoods());
-    }, [dispatch])
+        
+    }, [dispatch, alert, error])
 
   return (
     <Fragment>

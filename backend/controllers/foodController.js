@@ -16,6 +16,7 @@ exports.newFood = catchAsyncErrors (async (req, res, next) => {
 
 //Get all Food Products => /api/admin/v1/foods?keyword="pepperoni"
 exports.getFoods = catchAsyncErrors (async(req, res, next) => {
+
     const resPerPage = 12;
     const foodsCount = await Food.countDocuments();
     const apiFeatures = new APIFeatures(Food.find(), req.query).search().filter().pagination(resPerPage)
@@ -45,7 +46,7 @@ exports.getSingleFood = catchAsyncErrors (async(req, res, next) =>{
     })
 })
 
-//Update Food Product => /api/v1/admin/product/:id
+//Update Food Product => /api/v1/admin/food/:id
 exports.updateFood = catchAsyncErrors (async(req, res, next) => {
     let food = await Food.findById(req.params.id);
     
