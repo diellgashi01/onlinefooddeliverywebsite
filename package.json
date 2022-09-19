@@ -1,7 +1,7 @@
 {
-  "name": "shopit",
+  "name": "Food Delivery",
   "version": "1.0.0",
-  "description": "full ecommerce site using mern",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "start": "SET node backend/server.js",
@@ -10,7 +10,7 @@
     "seeder": "node backend/utils/seeder.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
   },
-  "author": "Ghulam Abbas",
+  "author": "Diell Gashi, Altin Salihu, Erian Dauti",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
