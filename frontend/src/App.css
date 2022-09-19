@@ -498,8 +498,8 @@ footer {
   z-index: 10;
 }
 #sidebar {
-  min-width: 100%;
-  max-width: 100%;
+  min-width: 80%;
+  max-width: 80%;
   background: #461F95;
   color: #fff;
   transition: all 0.3s;
