@@ -18,10 +18,12 @@
     "cloudinary": "^1.23.0",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.8",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.16",
+    "mysql": "^2.18.1",
     "nodemailer": "^6.4.16",
     "stripe": "^8.128.0",
     "validator": "^13.1.17"

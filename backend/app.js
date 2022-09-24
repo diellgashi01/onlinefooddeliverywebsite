@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const cloudinary = require('cloudinary');
+const ejs = require('ejs');
+const mysql = require('mysql');
 
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -45,6 +47,11 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
         res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'))
     })
 }
+
+//Contact form stuff
+app.get('/api/v1/contact/', (req, res) => {
+    res.send('MySQL');
+})
 
 
 // Middleware to handle errors

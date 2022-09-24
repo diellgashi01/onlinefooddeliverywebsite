@@ -49,7 +49,7 @@ const ProcessOrder = ({ match }) => {
         dispatch(updateOrder(id, formData))
     }
 
-    const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`
+    const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city}`
     const isPaid = paymentInfo && paymentInfo.status === 'succeeded' ? true : false
 
     return (
