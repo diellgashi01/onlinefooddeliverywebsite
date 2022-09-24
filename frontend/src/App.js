@@ -49,6 +49,11 @@ import axios from 'axios'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
+// Contact Form imports
+import Messages from './components/contact/Messages'
+import Contact from './components/contact/Contact'
+
+
 function App() {
 
   const [stripeApiKey, setStripeApiKey] = useState('');
@@ -91,6 +96,9 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/password/forgot" component={ForgotPassword} exact />
           <Route path="/password/reset/:token" component={NewPassword} exact />
+          
+          <ProtectedRoute path="/contact" component={Contact} exact />
+
           <ProtectedRoute path="/me" component={Profile} exact />
           <ProtectedRoute path="/me/update" component={UpdateProfile} exact />
           <ProtectedRoute path="/password/update" component={UpdatePassword} exact />
@@ -108,6 +116,7 @@ function App() {
         <ProtectedRoute path="/admin/users" isAdmin={true} component={UsersList} exact />
         <ProtectedRoute path="/admin/user/:id" isAdmin={true} component={UpdateUser} exact />
         <ProtectedRoute path="/admin/reviews" isAdmin={true} component={ProductReviews} exact />
+        <ProtectedRoute path="/admin/messages" isAdmin={true} component={Messages} exact/>
 
         {!loading && (!isAuthenticated || user.role !== 'admin') && (
           <Footer />

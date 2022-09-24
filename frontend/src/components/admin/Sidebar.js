@@ -33,6 +33,10 @@ const Sidebar = () => {
                     </li>
 
                     <li>
+                        <Link to="/admin/messages"><i className="fa fa-envelope"></i> Messages</Link>
+                    </li>
+
+                    <li>
                         <Link to="/admin/reviews"><i className="fa fa-star"></i> Reviews</Link>
                     </li>
 
